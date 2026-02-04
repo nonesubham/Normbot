@@ -7,6 +7,10 @@ Normbot is an open-source, self-hosted AI assistant built with one core principl
 
 > **⚠️ Disclaimer: This project is in its earliest planning stage.** This document outlines the proposed architecture and security model. Code will be developed incrementally based on this blueprint. Contributions and discussions are welcome.
 
+## Quick Update (Feb 2025)
+
+After careful consideration, I've decided to pivot from building custom skills to leveraging n8n as Normbot's primary action engine. Rather than wrestling with designing a generic skill interface that balances flexibility with security constraints—an undertaking that could delay the project indefinitely, I'm integrating n8n directly, which provides immediate access to 400+ battle-tested integrations out of the box. This approach mirrors OpenClaw's capabilities while maintaining Normbot's security-first architecture: n8n workflows will be defined on-demand by the main LLM, validated against strict JSON schemas and user allowlists and executed through a controlled orchestration layer that manages credentials from Normbot's encrypted vault. By offloading integration complexity to n8n, I can focus engineering effort on the core security layers—approval workflows, credential isolation, and audit logging, While retaining the ability for Normbot to dynamically generate new capabilities as needed without manual skill development.
+
 ## 🛡️ Core Security Philosophy: Containment, Not Just Filtering
 
 The prevailing approach to AI agent security often focuses on **filtering** or **detecting** malicious inputs (like prompt injection). Normbot adopts a different strategy: **assume that any data from the outside world (emails, web pages) is potentially hostile, and architect the system to neutralize its effects.**
